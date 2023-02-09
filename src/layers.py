@@ -5,6 +5,10 @@ def relu(Z):
     return np.maximum(0, Z)
 
 
+def relu_prime(Z):
+    return np.greater_equal(Z, 0).astype(int)
+
+
 def sigmoid(Z):
     return 1 / (1 + np.exp(-Z))
 
@@ -26,6 +30,23 @@ class Dense:
     def initialize_parameters(self):
         self.weights = np.random.randn(self.output_shape, self.input_shape)
         self.bias = np.random.randn(self.output_shape, 1)
+
+    def forward(self, input):
+        self.input = input
+        self.linear_output = np.dot(self.weights, self.input) + self.bias
+        self.output = relu(self.linear_output)
+
+        return self.output
+
+    def backward(self, dpartial):
+        m = dpartial.shape[1]
+
+        dZ = dpartial * relu_prime(self.linear_output)
+        dW = np.dot(dZ, self.input.T)/m
+        db = np.sum(dZ, axis=1, keepdims=True)/m
+        dA = np.dot(self.weights.T, dZ)
+
+        return dW, db, dA
 
 
 class Sigmoid:
