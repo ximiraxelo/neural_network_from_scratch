@@ -44,10 +44,8 @@ class NeuralNetwork:
             predicted = self.forward_propagation(x_train)
             self.backward_propagation(y_train, learning_rate)
 
-            if (epoch % print_step) == 0:
-                cost = self.cost(predicted, y_train)
+            if ((epoch % print_step) == 0) or (epoch == (epochs - 1)):
+                cost = self.cost(y_train)
                 print(f"Epoch: {epoch}, Cost: {cost}\n")
 
-        cost = self.cost(predicted, y_train)
-        print(f"Epoch: {epoch}, Cost: {cost}\n")
 
