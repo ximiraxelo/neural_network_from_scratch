@@ -21,3 +21,10 @@ class NeuralNetwork:
 
         return A
 
+    def backward_propagation(self, y_train, learning_rate):
+        dA = y_train
+
+        for layer in reversed(self.layers):
+            dW, db, dA = layer.backward(dA)
+            layer.update_parameters(learning_rate, dW, db)
+
