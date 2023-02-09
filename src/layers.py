@@ -84,6 +84,9 @@ class Sigmoid:
 
         return dW, db, dA
 
+    def update_parameters(self, learning_rate, dW, db):
+        self.weights = self.weights - learning_rate * dW
+        self.bias = self.bias - learning_rate * db
 
 
 class Softmax:
