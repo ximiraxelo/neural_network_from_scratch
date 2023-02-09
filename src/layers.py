@@ -42,6 +42,23 @@ class Sigmoid:
         self.weights = np.random.randn(self.output_shape, self.input_shape)
         self.bias = np.random.randn(self.output_shape, 1)
 
+    def forward(self, input):
+        self.input = input
+        Z = np.dot(self.weights, self.input) + self.bias
+        self.output = sigmoid(Z)
+
+        return self.output
+
+    def backward(self, Y):
+        m = Y.shape[1]
+        
+        dZ = self.output - Y
+        dW = np.dot(dZ, self.input.T)/m
+        db = np.sum(dZ, axis=1, keepdims=True)/m
+        dA = np.dot(self.weights.T, dZ)
+
+        return dW, db, dA
+
 
 
 class Softmax:
