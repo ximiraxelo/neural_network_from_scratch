@@ -1,6 +1,18 @@
 import numpy as np
 
 
+def relu(Z):
+    return np.maximum(0, Z)
+
+
+def sigmoid(Z):
+    return 1 / (1 + np.exp(-Z))
+
+
+def softmax(Z):
+    return np.exp(Z) / np.sum(np.exp(Z))
+
+
 class Dense:
     def __init__(self, input_shape, output_shape):
         self.input_shape = input_shape
