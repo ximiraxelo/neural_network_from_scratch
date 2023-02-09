@@ -48,4 +48,9 @@ class NeuralNetwork:
                 cost = self.cost(y_train)
                 print(f"Epoch: {epoch}, Cost: {cost}\n")
 
+    def predict(self, x_test):
+        predicted = self.forward_propagation(x_test)
+        predicted = np.round(predicted)
+
+        return predicted
 
