@@ -13,10 +13,6 @@ def sigmoid(Z):
     return 1 / (1 + np.exp(-Z))
 
 
-def softmax(Z):
-    return np.exp(Z) / np.sum(np.exp(Z))
-
-
 class Dense:
     def __init__(self, input_shape, output_shape):
         self.input_shape = input_shape
@@ -87,19 +83,3 @@ class Sigmoid:
     def update_parameters(self, learning_rate, dW, db):
         self.weights = self.weights - learning_rate * dW
         self.bias = self.bias - learning_rate * db
-
-
-class Softmax:
-    def __init__(self, input_shape, output_shape):
-        self.input_shape = input_shape
-        self.output_shape = output_shape
-
-    def __repr__(self):
-        return (
-            f"Softmax(input_shape={self.input_shape}, output_shape={self.output_shape})"
-        )
-
-    def initialize_parameters(self):
-        self.weights = np.random.randn(self.output_shape, self.input_shape)
-        self.bias = np.random.randn(self.output_shape, 1)
-
