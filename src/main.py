@@ -15,3 +15,11 @@ class NeuralNetwork:
         for layer in self.layers:
             layer.initialize_parameters()
 
+    def forward_propagation(self, x_train):
+        A = x_train
+
+        for layer in self.layers:
+            A = layer.forward(A)
+
+        return A
+
