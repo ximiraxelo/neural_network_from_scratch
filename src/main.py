@@ -10,3 +10,8 @@ class NeuralNetwork:
 
     def __repr__(self):
         return f"NeuralNetwork(layers={self.layers})"
+
+    def initialize_parameters(self):
+        for layer in self.layers:
+            layer.initialize_parameters()
+
