@@ -54,3 +54,9 @@ class NeuralNetwork:
 
         return predicted
 
+    def evaluate(self, x_test, y_test):
+        predictions = self.predict(x_test)
+        correct_predictions = np.sum(predictions == y_test)
+        accuracy = correct_predictions / y_test.shape[1]
+
+        return accuracy
