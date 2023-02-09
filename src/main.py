@@ -45,7 +45,7 @@ class NeuralNetwork:
             self.backward_propagation(y_train, learning_rate)
 
             if ((epoch % print_step) == 0) or (epoch == (epochs - 1)):
-                cost = self.cost(y_train)
+                cost = self.cost(predicted, y_train)
                 print(f"Epoch: {epoch}, Cost: {cost}\n")
 
     def predict(self, x_test):
