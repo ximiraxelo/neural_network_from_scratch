@@ -1,7 +1,5 @@
 import numpy as np
 
-from layers import Dense, Sigmoid, Softmax
-
 
 class NeuralNetwork:
     def __init__(self, layers):
