@@ -37,3 +37,17 @@ class NeuralNetwork:
 
         return np.squeeze(cost)
 
+    def fit(self, x_train, y_train, epochs, learning_rate, print_step=100):
+        self.initialize_parameters()
+
+        for epoch in range(epochs):
+            predicted = self.forward_propagation(x_train)
+            self.backward_propagation(y_train, learning_rate)
+
+            if (epoch % print_step) == 0:
+                cost = self.cost(predicted, y_train)
+                print(f"Epoch: {epoch}, Cost: {cost}\n")
+
+        cost = self.cost(predicted, y_train)
+        print(f"Epoch: {epoch}, Cost: {cost}\n")
+
