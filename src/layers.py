@@ -42,8 +42,8 @@ class Dense:
         m = dpartial.shape[1]
 
         dZ = dpartial * relu_prime(self.linear_output)
-        dW = np.dot(dZ, self.input.T)/m
-        db = np.sum(dZ, axis=1, keepdims=True)/m
+        dW = np.dot(dZ, self.input.T) / m
+        db = np.sum(dZ, axis=1, keepdims=True) / m
         dA = np.dot(self.weights.T, dZ)
 
         return dW, db, dA
@@ -72,10 +72,10 @@ class Sigmoid:
 
     def backward(self, Y):
         m = Y.shape[1]
-        
+
         dZ = self.output - Y
-        dW = np.dot(dZ, self.input.T)/m
-        db = np.sum(dZ, axis=1, keepdims=True)/m
+        dW = np.dot(dZ, self.input.T) / m
+        db = np.sum(dZ, axis=1, keepdims=True) / m
         dA = np.dot(self.weights.T, dZ)
 
         return dW, db, dA
