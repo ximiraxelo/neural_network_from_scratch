@@ -28,3 +28,12 @@ class NeuralNetwork:
             dW, db, dA = layer.backward(dA)
             layer.update_parameters(learning_rate, dW, db)
 
+    def cost(self, predicted, y):
+        m = y.shape[1]
+        cost = (
+            -(np.dot(y, np.log(predicted).T) + np.dot(1 - y, np.log(1 - predicted).T))
+            / m
+        )
+
+        return np.squeeze(cost)
+
