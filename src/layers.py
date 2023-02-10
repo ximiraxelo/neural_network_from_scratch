@@ -3,14 +3,39 @@ import numpy.typing as npt
 
 
 def relu(Z: npt.NDArray) -> npt.NDArray:
+    """Computes the ReLU (Rectified Linear Unit) activation function of a
+    given input.
+
+    Args:
+        Z (npt.NDArray): Linear input.
+
+    Returns:
+        npt.NDArray: Output of the ReLU activation function.
+    """
     return np.maximum(0, Z)
 
 
 def relu_prime(Z: npt.NDArray) -> npt.NDArray:
+    """Computes the firs derivate of the ReLU (Rectified Linear Unit).
+
+    Args:
+        Z (npt.NDArray): Linear input.
+
+    Returns:
+        npt.NDArray: Output of the first derivative of ReLU.
+    """
     return np.greater_equal(Z, 0).astype(int)
 
 
 def sigmoid(Z: npt.NDArray) -> npt.NDArray:
+    """Computes the sigmoid activation function of a given input.
+
+    Args:
+        Z (npt.NDArray): Linear input.
+
+    Returns:
+        npt.NDArray: Output of the sigmoid activation function.
+    """
     return 1 / (1 + np.exp(-Z))
 
 
