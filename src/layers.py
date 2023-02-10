@@ -124,7 +124,7 @@ class Sigmoid:
             of the previous layer.
         """
         self.input_shape = input_shape
-        self.output_shape = output_shape
+        self.output_shape = 1
 
     def __repr__(self) -> str:
         return (
