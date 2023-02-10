@@ -1,7 +1,7 @@
 import numpy as np
 import numpy.typing as npt
 
-from layers import Dense, Sigmoid
+from src.layers import Dense, Sigmoid
 
 
 class NeuralNetwork:
