@@ -16,6 +16,13 @@ def sigmoid(Z: npt.NDArray) -> npt.NDArray:
 
 class Dense:
     def __init__(self, input_shape: int, output_shape: int) -> None:
+        """Dense layer with ReLU activation function.
+
+        Args:
+            input_shape (int): Shape of the input, number of the units
+            of the previous layer.
+            output_shape (int): Number of units
+        """
         self.input_shape = input_shape
         self.output_shape = output_shape
 
@@ -29,6 +36,14 @@ class Dense:
         self.bias = np.random.randn(self.output_shape, 1)
 
     def forward(self, input: npt.NDArray) -> npt.NDArray:
+        """Computes the forward propagation of the layer.
+
+        Args:
+            input (npt.NDArray): Input of the layer, output of the previous layer.
+
+        Returns:
+            npt.NDArray: Output of the layer.
+        """
         self.input = input
         self.linear_output = np.dot(self.weights, self.input) + self.bias
         self.output = relu(self.linear_output)
@@ -38,6 +53,17 @@ class Dense:
     def backward(
         self, dpartial: npt.NDArray
     ) -> tuple[npt.NDArray, npt.NDArray, npt.NDArray]:
+        """Computes the backward propagation of the layer.
+
+        Args:
+            dpartial (npt.NDArray): dA of the next layer.
+
+        Returns:
+            tuple[npt.NDArray, npt.NDArray, npt.NDArray]: dW: derivative of
+            loss function in respect to weights, db: derivative of the
+            loss function in respect to bias, dA: derivative of the
+            loss function in respect of A.
+        """
         m = dpartial.shape[1]
 
         dZ = dpartial * relu_prime(self.linear_output)
@@ -50,12 +76,28 @@ class Dense:
     def update_parameters(
         self, learning_rate: float, dW: npt.NDArray, db: npt.NDArray
     ) -> None:
+        """Update the layer parameters using Gradient Descent.
+
+        Args:
+            learning_rate (float): Influence how much the
+            neural network parameters will be updated.
+            dW (npt.NDArray): Derivative of the loss function in respect of weights.
+            db (npt.NDArray): Derivative of the loss function in respect of bias.
+        """
         self.weights = self.weights - learning_rate * dW
         self.bias = self.bias - learning_rate * db
 
 
 class Sigmoid:
     def __init__(self, input_shape: int) -> None:
+        """Dense layer with Sigmoid activation function.
+
+        Sigmoid will always be the last layer.
+
+        Args:
+            input_shape (int): Shape of the input, number of the units
+            of the previous layer.
+        """
         self.input_shape = input_shape
         self.output_shape = output_shape
 
@@ -69,6 +111,14 @@ class Sigmoid:
         self.bias = np.random.randn(self.output_shape, 1)
 
     def forward(self, input: npt.NDArray) -> npt.NDArray:
+        """Computes the prediction.
+
+        Args:
+            input (npt.NDArray): Input of the layer, output of the previous layer.
+
+        Returns:
+            npt.NDArray: Prediction of the neural network.
+        """
         self.input = input
         Z = np.dot(self.weights, self.input) + self.bias
         self.output = sigmoid(Z)
@@ -76,6 +126,17 @@ class Sigmoid:
         return self.output
 
     def backward(self, Y: npt.NDArray) -> tuple[npt.NDArray, npt.NDArray, npt.NDArray]:
+        """Computes the backward propagation of the layer.
+
+        Args:
+            Y (npt.NDArray): Target data.
+
+        Returns:
+            tuple[npt.NDArray, npt.NDArray, npt.NDArray]: dW: derivative of
+            loss function in respect to weights, db: derivative of the
+            loss function in respect to bias, dA: derivative of the
+            loss function in respect of A.
+        """
         m = Y.shape[1]
 
         dZ = self.output - Y
@@ -88,5 +149,13 @@ class Sigmoid:
     def update_parameters(
         self, learning_rate: float, dW: npt.NDArray, db: npt.NDArray
     ) -> None:
+        """Update the layer parameters using Gradient Descent.
+
+        Args:
+            learning_rate (float): Influence how much the
+            neural network parameters will be updated.
+            dW (npt.NDArray): Derivative of the loss function in respect of weights.
+            db (npt.NDArray): Derivative of the loss function in respect of bias.
+        """
         self.weights = self.weights - learning_rate * dW
         self.bias = self.bias - learning_rate * db
