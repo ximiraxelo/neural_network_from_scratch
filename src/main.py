@@ -5,6 +5,17 @@ from layers import Dense, Sigmoid
 
 class NeuralNetwork:
     def __init__(self, layers: list[Dense | Sigmoid]) -> None:
+        """Neural network for binary classification
+
+        Args:
+            layers (list[Dense  |  Sigmoid]): The layers that will be in the
+            neural network, imported from layers.py. Sigmoid will always be
+            the last layer
+
+        >>> from layers import Dense, Sigmoid
+        >>> layers = [Dense(4, 16), Dense(16, 32), Sigmoid(32)]
+        >>> model = NeuralNetwork(layers)
+        """
         self.layers = layers
         self.n_layers = len(layers)
 
@@ -49,6 +60,19 @@ class NeuralNetwork:
         learning_rate: float,
         print_step: int = 100,
     ) -> None:
+        """fit the neural network.
+
+        Predictions can be made after the fitting.
+
+        Args:
+            x_train (npt.NDArray): Input data
+            y_train (npt.NDArray): Target data
+            epochs (int): Number of epochs to train the model
+            learning_rate (float): This rate influences how much the
+            neural network parameters will be updated
+            print_step (int, optional): The steps in which the cost of the
+            epoch will be printed. Defaults to 100.
+        """
         self.initialize_parameters()
 
         for epoch in range(epochs):
@@ -60,12 +84,32 @@ class NeuralNetwork:
                 print(f"Epoch: {epoch}, Cost: {cost}\n")
 
     def predict(self, x_test: npt.NDArray) -> npt.NDArray | np.float64:
+        """Generates predictions for the given input data.
+
+        The neural network need to be trained first.
+
+        Args:
+            x_test (npt.NDArray): Input data
+
+        Returns:
+            npt.NDArray | np.float64: Generated predictions for the
+            given input data.
+        """
         predicted = self.forward_propagation(x_test)
         predicted = np.round(predicted)
 
         return predicted
 
     def evaluate(self, x_test: npt.NDArray, y_test: npt.NDArray) -> np.float64:
+        """Return the accuracy of the model in the training data
+
+        Args:
+            x_test (npt.NDArray): Input data
+            y_test (npt.NDArray): Target data
+
+        Returns:
+            np.float64: accuracy of the model, in the range [0, 1]
+        """
         predictions = self.predict(x_test)
         correct_predictions = np.sum(predictions == y_test)
         accuracy = correct_predictions / y_test.shape[1]
