@@ -1,5 +1,6 @@
 import numpy as np
 import numpy.typing as npt
+
 from layers import Dense, Sigmoid
 
 
@@ -44,7 +45,7 @@ class NeuralNetwork:
     def cost(self, predicted: npt.NDArray, y: npt.NDArray) -> npt.NDArray:
         m = y.shape[1]
         epsilon = 1e-15
-        predicted = np.clip(predicted, epsilon, 1-epsilon)
+        predicted = np.clip(predicted, epsilon, 1 - epsilon)
         cost = (
             -(np.dot(y, np.log(predicted).T) + np.dot(1 - y, np.log(1 - predicted).T))
             / m
